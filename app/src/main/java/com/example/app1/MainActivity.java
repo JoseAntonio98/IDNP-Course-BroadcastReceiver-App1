@@ -13,27 +13,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-    private TextView texto;
-
-
+    private MyBroadcastReceiver MyReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Listener objetListener = new Listener();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        filter.addAction(Intent.ACTION_POWER_CONNECTED);
-        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        this.registerReceiver(objetListener,filter);
+        MyReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter("com.pkg.perform.Ruby");
+        if(intentFilter != null)
+        {
+            registerReceiver(MyReceiver, intentFilter);
+        }
 
     }
-
+/*
     private void  cambiarMensaje(Boolean bool){
         Button button = (Button) findViewById(R.id.button2);
         TextView mensajeCambiante = (TextView) findViewById(R.id.mensajePantalla);
@@ -53,14 +50,21 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
-    private class Listener extends BroadcastReceiver {
+ */
+    public class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action  = intent.getAction();
+            /*String action  = intent.getAction();
             boolean Cargando = action.equals(Intent.ACTION_POWER_CONNECTED);
-            cambiarMensaje(Cargando);
+            cambiarMensaje(Cargando); */
+            String data = intent.getStringExtra("Este es un mensaje de App2");
+            Log.i("msg" ,"Mensaje recibido:  " + data);
+            Toast.makeText(MainActivity.this, "Mensaje Recibido de App2", Toast.LENGTH_SHORT).show();
+
         }
     }
 
 }
+
+
 
