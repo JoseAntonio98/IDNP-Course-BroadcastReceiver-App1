@@ -22,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*Listener objetListener = new Listener();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter.addAction(Intent.ACTION_POWER_CONNECTED);
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        this.registerReceiver(objetListener,filter); */
         MyReceiver = new MyBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter("com.pkg.perform.Ruby");
         if(intentFilter != null)
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
 
 
 
